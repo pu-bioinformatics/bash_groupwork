@@ -1,0 +1,22 @@
+
+#
+git clone https://github.com/pu-bioinformatics/bash_groupwork.git
+cd bash_groupwork/
+mkdir data scripts results
+cd data/
+wget https://github.com/kipkurui/Intro2Linux2019/raw/master/Data/protein.fa.gz
+gunzip protein.fa.gz
+nano protein.fa
+
+sudo perl -MCPAN -e 'install FAST'
+fasgrep -di "uncharacterized" protein.fa > new_uncharacterized.fa
+fasgrep -v -di "uncharacterized" protein.fa > new_characterized.fa
+
+grep -v ">" protein.fa | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n//g' > RawAminoAcids.txt
+less RawAminoAcids.txt | wc 
+# number of amino acids: 75764658
+
+#or
+
+grep -v "^>" test.fa | awk 'BEGIN { ORS=""; print "" } { print }' > new.fasta
+
